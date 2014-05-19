@@ -17,12 +17,12 @@ class CommitReader:
             parts['author'] = result.group(5)
             parts['body'] = result.group(8)
             parts['merge'] = result.group(2)
+            return parts
 
         else:
             print 'Unexpected Commit format!\n', commit
-            exit(1)
+            return None
 
-        return parts
 
     def getCommits(self, params):
         command = ["git", "log", params['since'] + '..' + params['until']]
@@ -32,6 +32,6 @@ class CommitReader:
 
         for commitString in split:
             commit = self.processCommit(commitString)
-            if (bool(commit['merge']) is False):
+            if (commit is not None and bool(commit['merge']) is False):
                 commits.append(commit)
         return commits
