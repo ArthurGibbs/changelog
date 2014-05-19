@@ -21,7 +21,6 @@ class Evaluator:
         fogBugzNames = {}
         newList = []
         for commit in commits:
-
             commit['ignore'] = self.ignorePattern.findall(commit['body'])
             commit['closes'] = self.closesPattern.findall(commit['body'])
             commit['changelog'] = self.changelogPattern.findall(commit['body'])

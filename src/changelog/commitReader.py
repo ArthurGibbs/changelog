@@ -6,17 +6,17 @@ import subprocess
 class CommitReader:
 
     def __init__(self):
-        self.commitPattern = re.compile(r"\s*(?:commit)?\s*(?P<Sha>[\w]{40})\n(?:Merge: (?P<Merge>([\w]*) ([\w]*))\n)?Author: (?P<Author>.*) <(?P<Email>[\w\-@.]*)>\nDate:\s*(?P<Date>[a-zA-Z\s]* [0-9:\s]* \+[0-9]{4})\n(?P<Body>.*)", re.DOTALL)
+        self.commitPattern = re.compile(r"\s*(?:commit)?\s*(?P<Sha>[\w]{40})\n(?:Merge: (?P<Merge>([\w]*) ([\w]*))\n)?Author: (?P<Author>.*) <(?P<Email>[\w\-@.]*)>\nDate:\s*(?P<Date>[a-zA-Z\s]* [0-9:\s]*(?P<TimeZone>[+-][0-9]{4})?)\n(?P<Body>.*)", re.DOTALL)
 
     def processCommit(self, commit):
         result = self.commitPattern.match(commit)
         parts = {}
 
         if result:
-            parts['sha'] = result.group(1)
-            parts['author'] = result.group(5)
-            parts['body'] = result.group(8)
-            parts['merge'] = result.group(2)
+            parts['sha'] = result.group('Sha')
+            parts['author'] = result.group('Author')
+            parts['body'] = result.group('Body')
+            parts['merge'] = result.group('Merge')
             return parts
 
         else:

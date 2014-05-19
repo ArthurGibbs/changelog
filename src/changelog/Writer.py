@@ -26,7 +26,7 @@ class Writer:
             else:
                 return "\t\t\t* " + commit['sha'] + ' ' + commit['author']
         else:
-            return("\t\t\t* [" + commit['sha'] + '] ' + commit['author']),
+            return "\t\t\t* [" + commit['sha'] + '] ' + commit['author']
 
     def getCommitBody(self, commit, params):
         if commit['strippedBody']:

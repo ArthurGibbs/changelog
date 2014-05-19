@@ -96,7 +96,7 @@ def addorAppendCommit(bug, changesByBug, commit):
 def ArrangeCommitsByBug(commits):
     changesByBug = {}
     for commit in commits:
-        if 'closes' in commit:
+        if 'closes' in commit and commit['closes'] != []:
             for bug in commit['closes']:
                 addorAppendCommit(bug, changesByBug, commit)
         else:
