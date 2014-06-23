@@ -1,6 +1,6 @@
 [fogbugz]
-username=fogbugzemail@domain.com
-password=pa55w0rd
+username=
+password=
 [github]
-token=gfjh3gjk5g235y3895762389476580237645297845
-repository=api
+token=
+repository=
