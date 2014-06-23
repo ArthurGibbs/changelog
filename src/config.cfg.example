@@ -1,6 +1,6 @@
 [fogbugz]
-username=arthurg@blinkbox.com
-password=quimsteak
+username=
+password=
 [github]
-token=gfjh3gjk5g235y3895762389476580237645297845
-repository=api
+token=
+repository=

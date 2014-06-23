@@ -5,7 +5,7 @@ class Evaluator:
     def __init__(self):
         self.closesPattern = re.compile(r"(?:closes|!bug)(?::)?\s?(?:#)?([0-9]+)", re.IGNORECASE)
         self.changelogPattern = re.compile(r"!changelog", re.IGNORECASE)
-        self.testPattern = re.compile(r'!test(?:s)?:', re.IGNORECASE|re.DOTALL)
+        self.testPattern = re.compile(r'!test(?:s)?(?::)?', re.IGNORECASE|re.DOTALL)
         self.ignorePattern = re.compile(r"(!ignore)", re.IGNORECASE)
 
     def getCaseName(self, case, params, requestWrapper):
