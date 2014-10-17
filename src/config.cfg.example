@@ -4,3 +4,7 @@ password=
 [github]
 token=
 repository=
+[jira]
+username=
+password=
+defaultProject=MUSAPI

@@ -124,6 +124,9 @@ def main(argv):
 
     requestWrapper = RequestWrapper()
 
+    params['jiraUsername'] = config.get("jira", "username")
+    params['jiraPassword'] = config.get("jira", "password")
+    params['jiraDefaultProject'] = config.get("jira", "defaultProject")
     params['gitToken'] = config.get("github", "token")
     params['gitRepo'] = config.get("github", "repository")
     params['gitRepoUrl'] = 'https://github.com/we7/' + params['gitRepo'] + '/commit/'

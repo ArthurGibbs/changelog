@@ -1,4 +1,5 @@
 __author__ = 'arthur'
+import re
 
 class Writer:
     def __init__(self):
@@ -81,7 +82,11 @@ class Writer:
         if params['wiki']:
             if fogbugzNames[caseId] != 'NOT-FOUND':
                 print "======" + caseId + ' ' + fogbugzNames[caseId] + '======'
-                print "Fogbugz case: " + '[[https://we7.fogbugz.com/f/cases/' + caseId + '|' + caseId + ' ' + fogbugzNames[caseId] + ']]'
+                numberPattern = re.compile(r"^([0-9]+)$")
+                if (numberPattern.match(caseId)):
+                    print "Fogbugz case: " + '[[https://we7.fogbugz.com/f/cases/' + caseId + '|' + caseId + ' ' + fogbugzNames[caseId] + ']]'
+                else:
+                    print "Jira case: " + '[[https://issues.blinkbox.com/browse/' + caseId + '|' + caseId + ' ' + fogbugzNames[caseId] + ']]'
             else:
                 print "======" + caseId + ' ' + fogbugzNames[caseId] + '======'
         else:
