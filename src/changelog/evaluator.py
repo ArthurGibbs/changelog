@@ -13,7 +13,7 @@ class Evaluator:
     def getJiraName(self, case, params):
         try:
             url = 'https://issues.blinkbox.com/rest/api/2/issue/' + case
-            r = requests.get(url, auth=(params['jiraUsername'], params['jiraPassword']))
+            r = requests.get(url, auth=(params['jiraUsername'], params['jiraPassword']), verify=False)
             j = json.loads(r.text)
             bugname = j['fields']['summary']
         except AttributeError, e:
