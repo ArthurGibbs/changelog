@@ -18,8 +18,10 @@ class Evaluator:
             bugname = j['fields']['summary']
         except AttributeError, e:
             bugname = 'NOT-FOUND'
+            print 'Got AttributeError', e
         except Exception, e:
             bugname = 'NOT-FOUND'
+            print 'Got Generic Exception', e
         return bugname
 
     def getFogBugsName(self, case, params, requestWrapper):
@@ -38,7 +40,7 @@ class Evaluator:
         if jiraPattern.match(case):
             bugname = self.getJiraName(casestring, params)
         elif numberPattern.match(case):
-            if case > 20000:
+            if int(case) > 20000:
                 bugname = self.getFogBugsName(case, params, requestWrapper)
             else:
                 casestring = params['jiraDefaultProject'] + '-' + case
