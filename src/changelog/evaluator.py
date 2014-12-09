@@ -5,7 +5,7 @@ import requests
 
 class Evaluator:
     def __init__(self):
-        self.closesPattern = re.compile(r"(?:closes|!bug)(?::)?\s?(?:#)?([0-9A-Z\-]+)", re.IGNORECASE)
+        self.closesPattern = re.compile(r"(?:closes|!bug|!jira)(?::)?\s?(?:#)?([0-9A-Z\-]+)", re.IGNORECASE)
         self.changelogPattern = re.compile(r"!changelog", re.IGNORECASE)
         self.testPattern = re.compile(r'!test(?:s)?(?::)?', re.IGNORECASE|re.DOTALL)
         self.ignorePattern = re.compile(r"(!ignore)", re.IGNORECASE)
@@ -34,7 +34,7 @@ class Evaluator:
         return bugname
 
     def getCaseName(self, case, params, requestWrapper):
-        jiraPattern = re.compile(r"^(MUS.*-[0-9]+)$", re.IGNORECASE)
+        jiraPattern = re.compile(r"^([A-Z]{2,}-[0-9]+)$", re.IGNORECASE)
         numberPattern = re.compile(r"^([0-9]+)$")
         casestring = case
         if jiraPattern.match(case):
@@ -74,13 +74,15 @@ class Evaluator:
 
 
             if commit['closes']:
+                commitAfter=list(commit['closes'])
                 for caseId in commit['closes']:
                     if not caseId in fogBugzNames:
                         (summary, casecode) = self.getCaseName(caseId, params,requestWrapper)
                         fogBugzNames[casecode] = summary
-                        commit['closes'].append(casecode)
-                        commit['closes'].remove(caseId)
-                    commit['bugname'] = fogBugzNames[casecode]
+                        commitAfter.remove(caseId)
+                        commitAfter.append(casecode)
+                        commit['bugname'] = fogBugzNames[casecode]
+		commit['closes']=commitAfter
 
             uri = params['gitApi'] + '/repos/we7/' + params['gitRepo'] + '/git/commits/' + commit['sha'] + '?access_token=' + params['gitToken']
             if requestWrapper.call(uri)['code'] == 200:
